@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Program Control: Delivery, Governance &amp; Status</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1f4;--card:#fff;--tx:#0b2a4a;--mut:#5b6b7f;--line:#d5dce4;--pri:#073358;--acc:#ffc700;--blue:#0072bc;--ok:#0a7d4f;--okb:#d9f5e8;--wa:#8a5a00;--wab:#fdf0cc;--bad:#a4261d;--badb:#fde2df;--inf:#1d4f91;--infb:#e1edfb}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1420;--card:#171f2e;--tx:#e8edf6;--mut:#93a0b5;--line:#2a3447;--pri:#7aa2ff;--acc:#ffc700;--blue:#4aa3e8;--ok:#5fd7a1;--okb:#12382a;--wa:#f2c35b;--wab:#3a2e0e;--bad:#ff8c82;--badb:#43191a;--inf:#8dbbff;--infb:#16294a}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 Roboto,system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:1000px;margin:0 auto;padding:16px}h1,h2,.big,.tabs button,button.p{font-family:Montserrat,Roboto,system-ui,sans-serif}h1{font-size:22px;margin:0}h2{font-size:15px;margin:0 0 8px;color:var(--pri)}p{margin:6px 0}
+.hd{background:#073358;border-radius:14px;padding:16px;margin-bottom:14px;border-top:6px solid #0072bc}.hd h1{color:#fff}.hdm{color:#b9d3ea;font-size:13px;margin-top:4px}
+.sub,.meta{color:var(--mut);font-size:13px}.sub{margin:2px 0 14px}.meta{font-size:12.5px}
+.card{background:var(--card);border:1.5px solid var(--pri);border-radius:14px;padding:14px;margin-bottom:12px}
+.top{display:grid;grid-template-columns:1fr;gap:12px}@media(min-width:720px){.top{grid-template-columns:1.2fr 1fr 1fr}}
+.big{font-size:32px;font-weight:700;line-height:1.1}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;border:0}
+.s-Done{background:var(--okb);color:var(--ok)}.s-On{background:var(--infb);color:var(--inf)}.s-Risk{background:var(--wab);color:var(--wa)}.s-Blocked{background:var(--badb);color:var(--bad)}.s-Not{background:var(--line);color:var(--mut)}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri)}
+.ws{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.ws div{border:1px solid var(--line);border-radius:10px;padding:10px;cursor:pointer}.ws div.on{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri)}
+.ws small{color:var(--mut);display:block;margin:4px 0 0}
+.t{border-top:1px solid var(--line);padding:10px 0;display:grid;gap:3px}.t:first-child{border-top:0}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap}
+button,select,textarea{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+button{cursor:pointer}button.p{background:var(--acc);color:#073358;border:0;font-weight:700;border-radius:99px;padding:8px 18px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button.p,:root:not([data-theme="light"]) .tabs button.on{color:#0e1420}}
+textarea{width:100%;min-height:200px;resize:vertical}select{width:100%}
+.flag{color:var(--bad);font-weight:600}.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}.tabs button.on{background:var(--pri);color:#fff;border:0}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:6px;margin-left:6px}
+.real{background:var(--okb);color:var(--ok)}.hyp{background:var(--wab);color:var(--wa)}
+.note{font-size:12px;color:var(--mut);margin-top:14px}
+</style></head><body><div class="w">
+<div class="hd"><h1>Program Control</h1><div class="hdm">A working demo built for Julie by Emilio Vastola</div></div>
+<div class="sub">How I run complex programs: one plan, clear owners, active RAID management, a governance rhythm and an executive status I can send. The programs below are hypotheticals based on Bottomline’s public news, shown in flight to demonstrate how I would run them. My completed programs, with results, are under <b>My real work</b>.</div>
+<div class="card"><div class="meta">Program</div><select id="lsel"></select><div class="meta" id="lnote" style="margin-top:6px"></div></div>
+<div class="tabs"><button class="on" data-v="v1">Dashboard</button><button data-v="v2">Status report</button><button data-v="v3">My real work</button><button data-v="v4">Role fit</button></div>
+
+<div id="v1"><div class="top">
+ <div class="card"><div class="meta">Program</div><h2 id="ln"></h2><div class="meta" id="ld"></div>
+  <div style="margin-top:10px" class="meta">Weighted progress</div><div class="big" id="score"></div><div class="bar" style="margin-top:8px"><i id="sbar"></i></div></div>
+ <div class="card"><div class="meta">Overall status</div><div class="big" id="gate"></div><div class="meta" id="why" style="margin-top:8px"></div></div>
+ <div class="card"><div class="meta">RAID items open</div><div class="big" id="att"></div><div class="meta" style="margin-top:8px">overdue, blocked or at risk</div></div>
+</div>
+<div class="card"><h2>Workstreams <span class="meta">(tap to filter)</span></h2><div class="ws" id="ws"></div></div>
+<div class="card"><div class="row"><h2>Plan and RAID view</h2><span><button id="add">+ Add item</button> <button id="all">Show all</button></span></div><div id="tasks"></div></div>
+<div class="card"><h2>🐱 Follow-up engine</h2><div class="meta" style="margin-bottom:8px">Picks the highest-risk open item and drafts a peer-to-peer nudge.</div>
+<select id="pick" style="margin-bottom:8px"></select><div class="tabs" id="tone"></div><textarea id="msg" style="min-height:130px"></textarea>
+<div class="row" style="margin-top:8px"><button class="p" data-c="msg">Copy message</button><span class="meta" id="ok1"></span></div></div></div>
+
+<div id="v2" hidden>
+<div class="card"><h2>Executive status report</h2><div class="meta" style="margin-bottom:8px">Built from the live plan. Change a status on the Dashboard and this updates.</div><textarea id="rep"></textarea>
+<div class="row" style="margin-top:8px"><button class="p" data-c="rep">Copy report</button><span class="meta" id="ok2"></span></div></div>
+<div class="card"><h2>Governance rhythm I would set up</h2>
+<div class="t"><b>Daily or twice weekly: working group</b><div class="meta">Owners clear blockers and dependencies. Notes and actions in one shared page.</div></div>
+<div class="t"><b>Weekly: program checkpoint</b><div class="meta">RAID review, plan versus actual, decisions needed.</div></div>
+<div class="t"><b>Every two weeks: steering committee</b><div class="meta">Executive sponsors decide on escalations, scope and trade-offs. One-page status only.</div></div>
+<div class="t"><b>End of program: retrospective</b><div class="meta">What worked, what didn’t, what changes next time. Findings go into the template library.</div></div></div>
+<div class="card"><h2>Change management checklist</h2><div class="meta">Who is affected and what changes for them · Executive sponsor message · Role-based training · Pilot group · Hypercare window · Adoption metrics and feedback loop</div></div></div>
+
+<div id="v3" hidden>
+<div class="card"><h2>Completed programs: proof of work <span class="tag real">Real</span></h2><div class="meta">All completed. Each matches what this role does: migrations, customer deployments and revenue-growth initiatives. Fill in any remaining brackets before the call.</div></div>
+<div class="card"><h2>On-prem to cloud SaaS migration</h2><p>Converted clients from our on-premises software to the cloud SaaS platform, owning the client journey end to end: demos, onboarding and training, case triage, UAT and QA testing, and working with product engineers on enhancements and fixes. I also worked directly with market data partners, including FactSet, Bloomberg, Charles River and SWIFT (where I was a subject matter expert on the custodian transaction protocol), to make sure implementations and data feeds worked, and to adjust client data for the SaaS platform.</p><p class="meta"><b>Company:</b> Princeton Financial Systems (acquired by State Street) · <b>My role:</b> Senior Implementation Manager, Data Integrations · <b>Outcome:</b> converting clients from on-prem software to cloud SaaS helped generate about 20% additional revenue · <b>Lesson:</b> own the whole client journey, from demo to triage, so problems surface early.</p></div>
+<div class="card"><h2>Acquired German software: integration, US localization and first US implementation</h2><p>Integrated Aquin, a German SaaS company State Street acquired, and its pre/post-trade compliance software (MIG 21), localized it for the US and ran the first US client implementation. I worked with our German counterparts on localizing the platform, including building US compliance rules based on the 1940 Act into the software, and then on implementation and training for the first US client.</p><p class="meta"><b>Company:</b> Princeton Financial Systems · <b>My role:</b> Senior Implementation Manager, Data Integrations · <b>Stakes:</b> a highly visible launch that had to prove the acquisition was a good one · <b>Outcome:</b> the first US implementation went live successfully within a few months of the acquisition, a successful proof of the acquisition · <b>Lesson:</b> clear the regulatory gates early and treat client one as the reference build.</p></div>
+<div class="card"><h2>Market-entry service offering</h2><p>A service that helped clients decide whether entering a new market was worth it. For example, a London-based fund or ETF considering mainland Europe: barriers to entry, competition, regulation and whether it would make money.</p><p class="meta"><b>My role:</b> during a leadership development rotation: market research, demand validation, content, rollout and lead generation · <b>Outcome:</b> launched during my rotation; I moved on before the final results, so I have no revenue numbers to report · <b>Lesson:</b> validate demand before building the offer.</p></div>
+<div class="card"><h2>Salesforce relaunch: Classic to Lightning</h2><p>Owned the program end to end as Senior PMO. A proof of concept to find adoption blockers became the roadmap for the relaunch. From there: vendor coordination, communications from start to finish, UAT and QA testing, page layout and data cleanup including deduplication, and governance so the platform didn’t fill up with bad data again. Rollout was phased by user group with team leaders, followed by issue triage, support and resolution.</p><p class="meta"><b>Company:</b> State Street · <b>My role:</b> Director of Business Operations and Senior PMO · <b>Outcome:</b> adoption rose from 30% to 80%, which supported better forecasting and pipeline and helped revenue grow about 50% over 5 to 6 years · <b>Lesson:</b> people who must change need to be in the design.</p></div></div>
+
+<div id="v4" hidden>
+<div class="card"><h2>What the Program Manager role asks for, and where I show it</h2>
+<div class="t"><b>End-to-end delivery: deployments, migrations, end-of-life, revenue initiatives</b><div class="meta">Real programs tab, plus Hypothetical Bottomline programs in the selector.</div></div>
+<div class="t"><b>Scope, metrics, timelines, governance</b><div class="meta">Dashboard progress and status, plus the governance rhythm.</div></div>
+<div class="t"><b>Risk, issue and dependency management</b><div class="meta">Overdue, blocked and at-risk items surface first, with owners.</div></div>
+<div class="t"><b>Executive reporting and escalation</b><div class="meta">The status report writes itself from the plan.</div></div>
+<div class="t"><b>Retrospectives and change management</b><div class="meta">Retro and adoption checklist on the Status tab.</div></div>
+<div class="t"><b>Operating model and portfolio view</b><div class="meta">One rhythm, one status view and one playbook across every program, with retrospectives feeding the framework.</div></div>
+<div class="t"><b>JIRA, Confluence, MS365, Agile and Waterfall</b><div class="meta">This is a demo view. Tell Julie which tools and methods you have actually used.</div></div></div>
+<div class="card"><h2>First 90 days</h2>
+<div class="t"><b>Days 1 to 30: learn</b><div class="meta">Map active programs, owners, tools and current reporting. Meet stakeholders. Find where deliveries slip.</div></div>
+<div class="t"><b>Days 31 to 60: stabilize</b><div class="meta">One RAID log and one operating rhythm per program. First executive status report on a fixed schedule.</div></div>
+<div class="t"><b>Days 61 to 90: improve</b><div class="meta">Retrospective on one program, shared templates, and a short list of metrics leadership wants to see.</div></div></div></div>
+
+<div class="note">Built for this conversation. Hypothetical programs use Bottomline’s public announcements only. Nothing is stored or sent.</div>
+</div>
+<script>
+let LAUNCH=21;const ST=["Not started","On track","At risk","Blocked","Done"],CL={"Not started":"Not","On track":"On","At risk":"Risk","Blocked":"Blocked","Done":"Done"},W={"Not started":.1,"On track":.6,"At risk":.3,"Blocked":0,"Done":1};
+const mk=r=>r.map((t,i)=>({id:i,ws:t[0],name:t[1],owner:t[2],due:t[3],st:t[4],crit:!!t[5]}));
+const HYP="Hypothetical. Based on Bottomline’s public news; the plan is mine, not theirs.",REAL="Real program from my experience, simplified.";
+const LS=[
+{g:"Real",n:"On-prem to cloud SaaS migration",d:90,s:REAL,t:mk([["Customers","Client wave plan and readiness scoring","CSM",-5,"Done",1],["Pricing","Contract and pricing transition terms","Finance",4,"At risk",1],["Product","Data migration tooling and cutover test","Engineering",10,"On track",1],["Support","Cloud support model and runbooks","Support",14,"Not started",0],["Comms","Client communication and executive briefings","Marketing",8,"On track",0]])},
+{g:"Real",n:"German acquisition: US localization and first client",d:60,s:REAL,t:mk([["Compliance","US regulatory and localization audit","Compliance",-3,"Done",1],["Product","Integration of acquired modules","Engineering",12,"On track",1],["Customers","First US client implementation plan","Delivery",20,"At risk",1],["Sales","US positioning and pitch","Sales",15,"On track",0],["Support","US support coverage","Support",30,"Not started",0]])},
+{g:"Real",n:"Market-entry service offering",d:45,s:REAL,t:mk([["Product","Offer scope and service definition","Product",-7,"Done",1],["Pricing","Packaging and pricing validated with early clients","Pricing",2,"At risk",1],["Sales","Sales motion and target list","Sales",10,"On track",0],["Delivery","Delivery capacity and playbook","Delivery",18,"Not started",1],["Comms","Launch announcement and collateral","Marketing",22,"Not started",0]])},
+{g:"Real",n:"Salesforce relaunch: Classic to Lightning",d:50,s:REAL,t:mk([["Customers","Field discovery and adoption barriers","Field leaders",-12,"Done",1],["Product","Lightning workflow redesign","Admin team",6,"On track",1],["Data","Source-of-truth data cleanup and field rules","Ops",9,"At risk",1],["Training","Role-based training and office hours","Enablement",16,"Not started",1],["Support","Hypercare and feedback triage","Admin team",25,"Not started",0]])},
+{g:"Hypothetical (Bottomline)",n:"Payments Fraud Defense: bank deployment",d:28,s:HYP,t:mk([["Product","Nacha 2026 rule-to-feature mapping","Product",-1,"Done",1],["Partners","Third-party and consortium data agreements","Partnerships",5,"At risk",1],["Customers","Bank onboarding and integration plan","Delivery",6,"On track",1],["Training","Fraud-ops training and runbook","Support",12,"Not started",0],["Comms","Reference bank case study","CSM",20,"Not started",0]])},
+{g:"Hypothetical (Bottomline)",n:"Fraud Intelligence Exchange: pilot to GA",d:35,s:HYP,t:mk([["Product","Pilot success criteria and exit metrics","Product",-4,"At risk",1],["Compliance","Data-sharing governance and legal terms","Legal",3,"Blocked",1],["Customers","Pilot bank advisory feedback loop","CSM",7,"On track",0],["Pricing","Network participation pricing model","Pricing",14,"Not started",1],["Sales","Pilot-to-GA conversion plan","Sales",24,"Not started",0]])},
+{g:"Hypothetical (Bottomline)",n:"CFO Suite with Bea AI: customer rollout",d:40,s:HYP,t:mk([["Product","Governed-AI controls and audit trail sign-off","Product",-3,"Done",1],["Customers","Pilot customers live on one module (treasury, AP, AR or payments)","CSM",5,"On track",1],["Technology","ERP and bank data connections per customer","Engineering",9,"At risk",1],["Training","Finance-team training and AI usage guardrails","Enablement",16,"Not started",0],["Support","Support readiness for AI-assisted answers","Support",21,"Not started",1]])},
+{g:"Hypothetical (Bottomline)",n:"Global Pay Connect: bank migration to SaaS",d:60,s:HYP,t:mk([["Customers","Bank inventory of existing messaging connections","Delivery",-6,"Done",1],["Technology","Message transformation and ISO 20022 validation testing","Engineering",8,"At risk",1],["Compliance","Security and regulatory review per bank","Compliance",11,"Blocked",1],["Partners","Chainlink interoperability onboarding for opted-in banks","Partnerships",14,"Not started",0],["Support","Cutover plan and hypercare per bank","Support",25,"Not started",1]])},
+{g:"Hypothetical (Bottomline)",n:"Stablecoin visibility in CFO Suite: UK and US rollout",d:30,s:HYP,t:mk([["Product","Stablecoin payment visibility in payments and cash management","Product",-2,"Done",1],["Compliance","Policy and risk review for stablecoin use cases","Compliance",4,"At risk",1],["Customers","Early adopter selection in UK and US","CSM",7,"On track",0],["Training","Sales and CSM talk track for CFO conversations","Enablement",12,"Not started",0],["Support","Support runbook for stablecoin questions","Support",16,"Not started",1]])},
+{g:"Hypothetical (Bottomline)",n:"Legacy product end-of-life and customer migration",d:75,s:"Hypothetical. A typical end-of-life program of the kind this role describes; not tied to a Bottomline announcement.",t:mk([["Customers","Customer inventory and segmentation","CSM",-8,"Done",1],["Comms","End-of-life notice and exec outreach","Marketing",3,"On track",1],["Product","Migration tooling and parity gaps","Engineering",15,"At risk",1],["Support","Sunset support model and escalation path","Support",20,"Not started",0],["Finance","Contract and revenue impact review","Finance",10,"Blocked",1]])}
+];
+LS.splice(0,4);
+let T,F=null,tone=0,cur=null;
+const $=id=>document.getElementById(id);
+const late=t=>t.st!=="Done"&&t.due<0,hot=t=>late(t)||t.st==="Blocked"||t.st==="At risk";
+const sev=t=>(t.st==="Blocked"?3:0)+(late(t)?3:0)+(t.st==="At risk"?2:0)+(t.crit?2:0)+Math.max(0,5-t.due)/5;
+const wd=d=>d<0?Math.abs(d)+"d overdue":d===0?"due today":"due in "+d+"d";
+function rag(){return T.some(t=>t.crit&&(t.st==="Blocked"||late(t)))?"RED":T.some(hot)?"AMBER":"GREEN"}
+function render(){
+ const sc=Math.round(100*T.reduce((a,t)=>a+W[t.st],0)/T.length),r=rag(),g=$("gate");
+ $("score").textContent=sc+"%";$("sbar").style.width=sc+"%";
+ $("ld").textContent="Go-live in "+LAUNCH+" days · "+T.filter(t=>t.st==="Done").length+"/"+T.length+" items done";
+ g.textContent=r;g.style.color=r==="RED"?"var(--bad)":r==="AMBER"?"var(--wa)":"var(--ok)";
+ const c=T.filter(t=>t.crit&&(t.st==="Blocked"||late(t)));
+ $("why").textContent=r==="RED"?c.length+" critical item(s) blocked or overdue. Escalation needed.":r==="AMBER"?"No critical blockers, but items are at risk.":"All critical items on track.";
+ $("att").textContent=T.filter(hot).length;
+ $("ws").innerHTML=[...new Set(T.map(t=>t.ws))].map(k=>{const a=T.filter(t=>t.ws===k),p=Math.round(100*a.reduce((s,t)=>s+W[t.st],0)/a.length);return `<div class="${F===k?"on":""}" data-k="${k}"><b>${k}</b><div class="bar" style="margin-top:6px"><i style="width:${p}%"></i></div><small>${p}% · ${a.filter(hot).length} flagged</small></div>`}).join("");
+ $("tasks").innerHTML=T.filter(t=>!F||t.ws===F).sort((a,b)=>sev(b)-sev(a)).map(t=>`<div class="t"><div class="row"><b contenteditable data-f="name" data-e="${t.id}">${t.name}</b><button class="pill s-${CL[t.st]}" data-i="${t.id}" title="Tap to change status">${t.st}</button></div><div class="meta">${t.ws} · <span contenteditable data-f="owner" data-e="${t.id}">${t.owner}</span> · <span class="${late(t)?"flag":""}">${wd(t.due)}</span> · days <input type="number" data-d="${t.id}" value="${t.due}" style="width:64px;padding:2px 6px"> · <a data-x="${t.id}" style="cursor:pointer;color:var(--bad)">remove</a>${t.crit?" · critical path":""}</div></div>`).join("");
+ const open=T.filter(t=>t.st!=="Done").sort((a,b)=>sev(b)-sev(a));
+ if(!cur||!open.some(t=>t.id==cur))cur=open[0]?open[0].id:null;
+ $("pick").innerHTML=open.map(t=>`<option value="${t.id}" ${t.id==cur?"selected":""}>${hot(t)?"⚠️ ":""}${t.name} (${t.owner})</option>`).join("");
+ $("tone").innerHTML=["Collaborative","Direct","Escalation"].map((n,i)=>`<button class="${i===tone?"on":""}" data-n="${i}">${n}</button>`).join("");
+ msg();report(sc,r);
+}
+function msg(){
+ const t=T.find(x=>x.id==cur);if(!t){$("msg").value="All items are complete.";return}
+ const f=t.owner.split(" ")[0],w=wd(t.due),s=t.st.toLowerCase();
+ $("msg").value=[
+ `Hi ${f}, I’m tracking the plan and “${t.name}” is showing ${s} (${w}). Is there anything you need from me or another team? I can take a decision, a dependency or an intro off your plate today.`,
+ `${f}, quick check on “${t.name}”. It’s ${w}${t.crit?" and on the critical path":""}. Can we take 10 minutes today to agree what unblocks it and a firm date?`,
+ `${f}, I need a committed date for “${t.name}” or a trade-off to take to the steering committee. If the current approach isn’t working, let’s change it today: reduce scope, add help or move the gate. Which do you prefer?`][tone];
+}
+function report(sc,r){
+ const L=LS[+$("lsel").value],bl=T.filter(hot).sort((a,b)=>sev(b)-sev(a)),nx=T.filter(t=>t.st!=="Done"&&t.due>=0&&t.due<=14).sort((a,b)=>a.due-b.due),bk=T.filter(t=>t.st==="Blocked"||late(t));
+ $("rep").value=`PROGRAM STATUS: ${L.n}\nOverall: ${r} · Progress ${sc}% · ${T.filter(t=>t.st==="Done").length}/${T.length} items done · Go-live in ${LAUNCH} days\n\nRISKS AND ISSUES\n`+(bl.length?bl.map(t=>`- ${t.name} (${t.owner}): ${t.st}, ${wd(t.due)}${t.crit?", critical path":""}. Next step: owner to confirm recovery date at next checkpoint.`).join("\n"):"- None")+`\n\nDECISIONS / ESCALATIONS NEEDED\n`+(bk.length?bk.map(t=>`- Unblock “${t.name}” (${t.owner}): decision or resource needed`).join("\n"):"- None")+`\n\nNEXT 14 DAYS\n`+(nx.length?nx.map(t=>`- ${t.name} (${t.owner}), ${wd(t.due)}`).join("\n"):"- No milestones due")+`\n\nNEXT STEERING COMMITTEE: confirm decisions above and any change to go-live date.`;
+}
+document.addEventListener("click",e=>{
+ const k=e.target.closest("[data-k]"),i=e.target.closest("[data-i]"),n=e.target.closest("[data-n]"),v=e.target.dataset.v,c=e.target.dataset.c;
+ if(k){F=F===k.dataset.k?null:k.dataset.k;render()}
+ else if(i){const t=T[i.dataset.i];t.st=ST[(ST.indexOf(t.st)+1)%ST.length];render()}
+ else if(n){tone=+n.dataset.n;render()}
+ else if(e.target.id==="add"){T.push({id:T.length,ws:F||T[0].ws,name:"New item",owner:"Owner",due:7,st:"Not started",crit:false});render()}
+ else if(e.target.dataset.x!==undefined){T.splice(+e.target.dataset.x,1);T.forEach((t,j)=>t.id=j);cur=null;render()}
+ else if(e.target.id==="all"){F=null;render()}
+ else if(v){["v1","v2","v3","v4"].forEach(x=>$(x).hidden=x!==v);document.querySelectorAll("[data-v]").forEach(b=>b.classList.toggle("on",b===e.target))}
+ else if(c){const x=$(c);x.select();try{navigator.clipboard.writeText(x.value)}catch(_){}const o=$(c==="msg"?"ok1":"ok2");o.textContent="Copied ✓";setTimeout(()=>o.textContent="",1500)}
+});
+$("pick").addEventListener("change",e=>{cur=+e.target.value;msg()});
+document.addEventListener("focusout",e=>{const f=e.target.dataset&&e.target.dataset.f;if(f){const t=T[+e.target.dataset.e];t[f]=e.target.textContent.trim()||t[f];render()}});
+document.addEventListener("change",e=>{if(e.target.dataset&&e.target.dataset.d!==undefined){T[+e.target.dataset.d].due=+e.target.value||0;render()}});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.f){e.preventDefault();e.target.blur()}});
+const grp=[...new Set(LS.map(l=>l.g))];
+$("lsel").innerHTML=grp.map(g=>`<optgroup label="${g}">`+LS.map((l,i)=>l.g===g?`<option value="${i}">${l.n}</option>`:"").join("")+"</optgroup>").join("");
+$("lsel").addEventListener("change",e=>{const l=LS[+e.target.value];T=l.t;LAUNCH=l.d;F=null;cur=null;$("ln").innerHTML=l.n+`<span class="tag ${l.g==="Real"?"real":"hyp"}">${l.g==="Real"?"Real":"Hypothetical"}</span>`;$("lnote").textContent=l.s;render()});
+$("lsel").dispatchEvent(new Event("change"));
+</script></body></html>
