@@ -107,7 +107,7 @@ textarea{width:100%;min-height:200px;resize:vertical}select{width:100%}
 <script>
 let LAUNCH=21;const ST=["Not started","On track","At risk","Blocked","Done"],CL={"Not started":"Not","On track":"On","At risk":"Risk","Blocked":"Blocked","Done":"Done"},W={"Not started":.1,"On track":.6,"At risk":.3,"Blocked":0,"Done":1};
 const mk=r=>r.map((t,i)=>({id:i,ws:t[0],name:t[1],owner:t[2],due:t[3],st:t[4],crit:!!t[5]}));
-const HYP="Hypothetical. Based on Bottomline’s public news; the plan is mine, not theirs.",REAL="Real program from my experience, simplified.";
+const HYP="Hypothetical. Based on Bottomline’s public news",REAL="Real program from my experience, simplified.";
 const LS=[
 {g:"Real",n:"On-prem to cloud SaaS migration",d:90,s:REAL,t:mk([["Customers","Client wave plan and readiness scoring","CSM",-5,"Done",1],["Pricing","Contract and pricing transition terms","Finance",4,"At risk",1],["Product","Data migration tooling and cutover test","Engineering",10,"On track",1],["Support","Cloud support model and runbooks","Support",14,"Not started",0],["Comms","Client communication and executive briefings","Marketing",8,"On track",0]])},
 {g:"Real",n:"German acquisition: US localization and first client",d:60,s:REAL,t:mk([["Compliance","US regulatory and localization audit","Compliance",-3,"Done",1],["Product","Integration of acquired modules","Engineering",12,"On track",1],["Customers","First US client implementation plan","Delivery",20,"At risk",1],["Sales","US positioning and pitch","Sales",15,"On track",0],["Support","US support coverage","Support",30,"Not started",0]])},
